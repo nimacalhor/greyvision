@@ -1,5 +1,7 @@
-import { Photo } from "./../../photo/libraries/photo-types";
 import { PhotoOrientation } from "../../photo/libraries/photo-types";
+import { Photo } from "./../../photo/libraries/photo-types";
+import { Token } from "../../member/libraries/member-types";
+import { User } from "./../../user/libraries/user-types";
 
 // Collection ________________________________________________________________________________
 export interface Collection {
@@ -16,8 +18,7 @@ export interface Collection {
   share_key: string;
   tags: Tag[];
   links: Links3;
-  //   TEMPORARY
-  //   user: User2;
+  user: User;
   cover_photo: CoverPhoto2;
   preview_photos: PreviewPhoto[];
 }
@@ -71,8 +72,7 @@ interface CoverPhoto {
   current_user_collections: any[];
   sponsorship: any;
   topic_submissions: TopicSubmissions;
-  //   TEMPORARY
-  //   user: User;
+  user: User;
 }
 interface Urls {
   raw: string;
@@ -155,8 +155,7 @@ interface CoverPhoto2 {
   current_user_collections: any[];
   sponsorship: any;
   topic_submissions: TopicSubmissions2;
-  //   TEMPORARY
-  //   user: User3;
+  user: User;
 }
 interface Urls2 {
   raw: string;
@@ -218,8 +217,7 @@ export interface RelatedCollectionEntity {
 
 export interface CreateCollectionCriteria {
   title: string;
-  //   TEMPORARY
-  token: {};
+  token: Token;
   private?: boolean;
   description?: string;
 }
@@ -253,8 +251,8 @@ export interface CollectionListCriteria {
   page: number;
   per_page: number;
 }
-export interface CollectionListEntity{
-  total:number,
-  total_pages:number,
-  results: Collection[]
+export interface CollectionListEntity {
+  total: number;
+  total_pages: number;
+  results: Collection[];
 }

@@ -1,3 +1,5 @@
+import { Token } from "../../member/libraries/member-types";
+import { User } from "../../user/libraries/user-types";
 import { PHOTO_COLORS } from "./constants";
 
 // photo entity ________________________________________________________________________________
@@ -19,8 +21,7 @@ export interface Photo {
   liked_by_user: boolean;
   current_user_collections: any[];
   topic_submissions: TopicSubmissions;
-  // TEMPORARY
-  //   user: User;
+  user: User;
 }
 interface Urls {
   raw: string;
@@ -70,8 +71,7 @@ export interface PhotoDownloadEntity extends PhotoEntity {
 }
 
 export interface PhotoLikeCriteria extends PhotoCriteria {
-  // TEMPORARY
-  token: {};
+  token: Token;
   like: boolean;
 }
 
