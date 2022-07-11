@@ -1,16 +1,17 @@
 import { log } from "@general/libraries/helper";
 import { useEffect } from "react";
 import {
-  fetchPhotoDownloadLink,
-  fetchRandomPhoto,
-  fetchPhotoList,
-  fetchPhoto,
-  likePhoto,
-} from "@photo/store/api/photo-api";
-
+  fetchCollection,
+  fetchCollectionList,
+  fetchCollectionPhotoList,
+  fetchRelatedCollectionList,
+} from "@collection/store/api/collection-api";
+// "c"
 export default function Home() {
   useEffect(() => {
-    
+    fetchRelatedCollectionList({
+      id: "DbAJ4uwOVeE",
+    }).then((res) => log("res in fetchRelatedCollectionList", res));
   }, []);
   return <div>hello</div>;
 }

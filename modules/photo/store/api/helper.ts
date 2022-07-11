@@ -1,4 +1,7 @@
-import { addClientId } from "@main/modules/general/libraries/helper";
+import {
+  addClientId,
+  getUrlParam,
+} from "@main/modules/general/libraries/helper";
 import {
   API_RANDOM_PHOTO_PATH,
   API_SEARCH_PHOTO,
@@ -12,16 +15,6 @@ import {
   PhotoOrientation,
   PhotoCriteria,
 } from "@photo/libraries/photo-types";
-
-const getUrlParam = function (
-  item: string | string[] | undefined | number | PhotoOrientation,
-  title: string
-): string {
-  if (!item) return "";
-  if (Array.isArray(item))
-    return `${title}=${item.map((s) => s.trim()).join(",")}&`;
-  return `${title}=${item.toString().trim()}&`;
-};
 
 // photo list
 const getPhotoListPath = (criteria: PhotoListCriteria) => {
@@ -60,11 +53,11 @@ const getRandomPhotoPath = (criteria: RandomPhotoCriteria) => {
 
 // download photo
 const getPhotoDownloadLink = (criteria: PhotoDownloadCriteria) =>
-  addClientId(`${criteria.download_location}`, true);
+  addClientId(`${criteria.download_location}`);
 
 // like photo
 const getPhotoLikeLink = (criteria: PhotoLikeCriteria) =>
-  addClientId(`${API_PHOTO_PATH}/${criteria.id}/like`, true);
+  addClientId(`${API_PHOTO_PATH}/${criteria.id}/like`);
 
 export {
   getPhotoDownloadLink,

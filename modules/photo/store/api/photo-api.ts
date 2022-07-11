@@ -105,6 +105,8 @@ const likePhoto = async function (
   const url = getPhotoLikeLink(criteria);
   log("url in likePhoto", url)
   try {
+    // TODO __________
+    // send Token in headers
     const response = await axios.get(url);
     if (response.data)
       return {

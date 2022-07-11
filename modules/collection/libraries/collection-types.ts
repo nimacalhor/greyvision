@@ -198,9 +198,9 @@ export interface CollectionEntity {
 }
 
 export interface CollectionPhotoListCriteria extends CollectionCriteria {
-  page: number;
-  per_page: number;
-  orientation: PhotoOrientation;
+  page?: number;
+  per_page?: number;
+  orientation?: PhotoOrientation;
 }
 export interface CollectionPhotoListEntity {
   criteria: CollectionPhotoListCriteria;
@@ -218,7 +218,7 @@ export interface RelatedCollectionEntity {
 export interface CreateCollectionCriteria {
   title: string;
   token: Token;
-  private?: boolean;
+  is_private?: boolean;
   description?: string;
 }
 export interface CreateCollectionEntity {
@@ -226,11 +226,15 @@ export interface CreateCollectionEntity {
   collection: Collection;
 }
 
-export interface UpdateCollectionCriteria extends CreateCollectionCriteria {}
+export interface UpdateCollectionCriteria extends CreateCollectionCriteria {
+  id: string;
+}
 export interface UpdateCollectionEntity extends CreateCollectionEntity {}
 
 export interface DeleteCollectionCriteria extends CollectionCriteria {}
-export interface DeleteCollectionEntity extends CollectionEntity {}
+export interface DeleteCollectionEntity {
+  criteria: DeleteCollectionCriteria;
+}
 
 export interface AddPhotoToCollectionCriteria {
   collection_id: string;
@@ -248,11 +252,12 @@ export interface DeletePhotoFromCollectionEntity
 
 export interface CollectionListCriteria {
   query: string;
-  page: number;
-  per_page: number;
+  page?: number;
+  per_page?: number;
 }
 export interface CollectionListEntity {
   total: number;
   total_pages: number;
   results: Collection[];
+  criteria: CollectionListCriteria;
 }
