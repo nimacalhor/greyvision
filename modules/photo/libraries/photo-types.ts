@@ -53,7 +53,6 @@ export interface PhotoEntity {
 export interface RandomPhotoCriteria {
   query?: string;
   count?: number;
-  topics?: string[];
   username?: string;
   collections?: string[];
   orientation?: PhotoOrientation;
@@ -61,12 +60,15 @@ export interface RandomPhotoCriteria {
 
 export interface RandomPhotoEntity {
   criteria: RandomPhotoCriteria;
-  photo: Photo[];
+  results: Photo[];
 }
 
-export interface PhotoDownloadCriteria extends PhotoCriteria {}
+export interface PhotoDownloadCriteria {
+  download_location: string;
+}
 
-export interface PhotoDownloadEntity extends PhotoEntity {
+export interface PhotoDownloadEntity {
+  criteria: PhotoDownloadCriteria;
   url: string;
 }
 
@@ -85,13 +87,13 @@ export enum PhotoOrientation {
 
 // search ______________________________
 export interface PhotoListCriteria {
-  page: number;
+  page?: number;
   query: string;
-  per_page: number;
-  collections: string[];
-  order_by: PhotoListSorting;
-  orientation: PhotoOrientation;
-  color: (keyof typeof PHOTO_COLORS)[];
+  per_page?: number;
+  collections?: string[];
+  order_by?: PhotoListSorting;
+  orientation?: PhotoOrientation;
+  color?: keyof typeof PHOTO_COLORS;
 }
 
 export interface PhotoListEntity {

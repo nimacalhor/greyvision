@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "paths": {
+      "@main/*": ["./*"],
+      "@pages/*": ["pages/*"],
+      "@modules/*": ["modules/*"],
+      "@user/*": ["modules/user/*"],
+      "@templates/*": ["templates/*"],
+      "@photo/*": ["modules/photo/*"],
+      "@member/*": ["modules/member/*"],
+      "@general/*": ["modules/general/*"],
+      "@collection/*": ["modules/collection/*"],
+    },
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/modules/map/components/NeshanMap.js"
+  ],
+  "exclude": ["node_modules"]
+}
