@@ -94,11 +94,12 @@ export interface UserCollectionListEntity {
 
 export interface UserListCriteria {
   query: string;
-  page: number;
-  per_page: number;
+  page?: number;
+  per_page?: number;
 }
 export interface UserListEntity {
   total: number;
   total_pages: number;
   results: User[];
+  criteria: UserListCriteria;
 }

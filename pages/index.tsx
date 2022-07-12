@@ -1,17 +1,19 @@
 import { log } from "@general/libraries/helper";
 import { useEffect } from "react";
 import {
-  fetchCollection,
-  fetchCollectionList,
-  fetchCollectionPhotoList,
-  fetchRelatedCollectionList,
-} from "@collection/store/api/collection-api";
-// "c"
+  fetchUserCollectionList,
+  fetchUserLikedPhotoList,
+  fetchUserList,
+  fetchUserPhotoList,
+  fetchUserProfile,
+  fetchUserProfileLink,
+} from "@user/store/api/user-api";
+// ""spWxYJr6uG4"
 export default function Home() {
   useEffect(() => {
-    fetchRelatedCollectionList({
-      id: "DbAJ4uwOVeE",
-    }).then((res) => log("res in fetchRelatedCollectionList", res));
+    fetchUserCollectionList({
+      username: "mike_marchi",
+    }).then((res) => log("res in fetchUserCollectionList", res));
   }, []);
   return <div>hello</div>;
 }
