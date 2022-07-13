@@ -6,7 +6,7 @@ import {
   API_RANDOM_PHOTO_PATH,
   API_SEARCH_PHOTO,
   API_PHOTO_PATH,
-} from "@general/libraries/api-paths";
+} from "@main/modules/general/libraries/api-urls";
 import {
   PhotoDownloadCriteria,
   RandomPhotoCriteria,

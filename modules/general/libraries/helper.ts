@@ -6,6 +6,12 @@ const addClientId = (url: string) =>
     process.env.unsplash_access_key
   }`;
 
+const addSecretKey = (url: string) =>
+  url +
+  `${!url.endsWith("&") || !url.endsWith("?") ? "&" : ""}client_secret=${
+    process.env.unsplash_secret_key
+  }`;
+
 function log(title: string, ...args: any[]) {
   console.log(title + "__________");
   args.forEach((arg) => console.log(arg));
@@ -21,4 +27,8 @@ const getUrlParam = function (
   return `${title}=${item.toString().trim()}&`;
 };
 
-export { addClientId, log, getUrlParam };
+const getSingleQuery = (query: string | string[]): string => {
+  if (Array.isArray(query)) return query.join(",");
+  return query;
+};
+export { addClientId, log, getUrlParam, addSecretKey, getSingleQuery };

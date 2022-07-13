@@ -2,7 +2,7 @@ import { addClientId, getUrlParam } from "@general/libraries/helper";
 import {
   API_SEARCH_USER_PATH,
   API_USER_PATH,
-} from "@general/libraries/api-paths";
+} from "@main/modules/general/libraries/api-urls";
 import {
   UserCollectionListCriteria,
   UserLikedPhotoListCriteria,

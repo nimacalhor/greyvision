@@ -1,8 +1,8 @@
-import { createTheme } from "@mui/material";
+import { createTheme, ThemeOptions } from "@mui/material";
 
-const themeOptions = {
+const themeOptions: ThemeOptions = {
   palette: {
-    type: "dark",
+    mode: "dark",
     primary: {
       main: "#646464",
       contrastText: "#f2ecff",
@@ -27,7 +27,6 @@ const themeOptions = {
       primary: "#ffffff",
       secondary: "#f2ecff",
       disabled: "#dcccff",
-      hint: "#cbb3ff",
     },
   },
   typography: {
@@ -40,4 +39,4 @@ const themeOptions = {
   },
 };
 
-export default createTheme(themeOptions)
+export default createTheme(themeOptions);

@@ -2,7 +2,7 @@ import { getUrlParam, addClientId } from "@general/libraries/helper";
 import {
   API_SEARCH_COLLECTION_PATH,
   API_COLLECTION_PATH,
-} from "@general/libraries/api-paths";
+} from "@main/modules/general/libraries/api-urls";
 import {
   DeletePhotoFromCollectionCriteria,
   AddPhotoToCollectionCriteria,
