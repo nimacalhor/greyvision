@@ -1,4 +1,5 @@
 import Header from "@main/modules/template/components/header";
+import Nav from "@main/modules/template/components/nav";
 import { useTheme } from "@mui/material";
 
 function MainTemplate({ children }: { children: any }) {
@@ -6,6 +7,7 @@ function MainTemplate({ children }: { children: any }) {
   return (
     <>
       <Header theme={theme} />
+      <Nav />
       <main>{children}</main>
     </>
   );

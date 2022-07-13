@@ -37,6 +37,17 @@ const themeOptions: ThemeOptions = {
       fontSize: "0.9rem",
     },
   },
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            color: "#c8fcea",
+          },
+        },
+      },
+    },
+  },
 };
 
 export default createTheme(themeOptions);

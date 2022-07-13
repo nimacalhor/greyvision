@@ -46,7 +46,7 @@ export default function useHeaderTitle(title?: string) {
 
   // user ______________________________
   //   TODO add user name
-  if (path.includes(URLs.search.main))
+  if (path.includes(URLs.user.main))
     result = { title: "username", goBackCallback };
 
   return result;

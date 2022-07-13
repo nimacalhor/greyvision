@@ -5,22 +5,22 @@ const URLs = Object.freeze({
     return "/collections/" + id;
   },
   member(username: string) {
-    return {
+    return Object.freeze({
       main: `/member/${username}`,
       liked: `/member/${username}/liked`,
       collections: `/member/${username}/collections`,
-    };
+    });
   },
-  search: {
+  search: Object.freeze({
     main: "/search",
     users: "/search/users",
     collections: "/search/collections",
-  },
-  user: {
+  }),
+  user: Object.freeze({
     main: "/user",
     liked: "/user/liked",
     collections: "/user/collections",
-  },
+  }),
 });
 
 export default URLs;
