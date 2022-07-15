@@ -1,6 +1,8 @@
-import { Token } from "../../member/libraries/member-types";
-import { User } from "../../user/libraries/user-types";
 import { PHOTO_COLORS } from "./constants";
+// types ______________________________
+import type { Token } from "../../member/libraries/member-types";
+import type { User } from "../../user/libraries/user-types";
+import type PhotoActionsTypes from "../store/action-types";
 
 // photo entity ________________________________________________________________________________
 export interface Photo {
@@ -107,4 +109,53 @@ export enum PhotoListSorting {
   latest = "latest",
   oldest = "oldest",
   popular = "popular",
+}
+
+// store ______________________________
+export interface PhotoStateItem {
+  page: number;
+  photos: Photo[];
+}
+export interface PhotoState {
+  error: null | string;
+  pending: boolean;
+  canLoadMore: boolean;
+  query: string;
+  list: PhotoStateItem[];
+}
+export interface GetPhotosAction {
+  type: PhotoActionsTypes.GET_PHOTOS;
+  payload: {
+    criteria: PhotoListCriteria;
+  };
+}
+export interface PutPhotosAction {
+  type: PhotoActionsTypes.PUT_PHOTOS;
+  payload: {
+    item: PhotoStateItem;
+  };
+}
+export interface PutPendingPhotosAction {
+  type: PhotoActionsTypes.PUT_PENDING_PHOTOS;
+  payload: {
+    pending: boolean;
+  };
+}
+export interface PutErrorPhotosAction {
+  type: PhotoActionsTypes.PUT_ERROR_PHOTOS;
+  payload: {
+    error: null | string;
+  };
+}
+export interface PutLoadMoreAction {
+  type: PhotoActionsTypes.PUT_LOAD_MORE;
+  payload: {
+    limit: number;
+  };
+}
+export interface PutPhotoQueryAction {
+  type: PhotoActionsTypes.PUT_PHOTO_QUERY;
+  payload: {
+    query: string;
+  };
 }

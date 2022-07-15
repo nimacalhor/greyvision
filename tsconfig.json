@@ -32,7 +32,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/modules/map/components/NeshanMap.js"
   ],
   "exclude": ["node_modules"]
 }

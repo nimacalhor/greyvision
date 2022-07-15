@@ -1,7 +1,8 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material";
-import theme from "../modules/theme";
 import { MainTemplate } from "@templates/index";
+import { ThemeProvider } from "@mui/material";
+import { wrapper } from "@main/modules/store";
+import theme from "../modules/theme";
 // types ________________________________________________________________________________
 import type { ReactElement, ReactNode } from "react";
 import type { AppProps } from "next/app";
@@ -18,7 +19,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout =
     Component.getLayout || ((page: any) => <MainTemplate>{page}</MainTemplate>);
-    
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -27,4 +28,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

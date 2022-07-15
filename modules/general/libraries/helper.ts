@@ -1,4 +1,5 @@
 import { PhotoOrientation } from "@main/modules/photo/libraries/photo-types";
+import { PHOTO_QUERIES } from "./constants";
 
 const addClientId = (url: string) =>
   url +
@@ -31,4 +32,15 @@ const getSingleQuery = (query: string | string[]): string => {
   if (Array.isArray(query)) return query.join(",");
   return query;
 };
-export { addClientId, log, getUrlParam, addSecretKey, getSingleQuery };
+
+const getRandomPhotoQuery = () =>
+  PHOTO_QUERIES[Math.floor(Math.random() * PHOTO_QUERIES.length)];
+
+export {
+  getRandomPhotoQuery,
+  getSingleQuery,
+  addSecretKey,
+  addClientId,
+  getUrlParam,
+  log,
+};
