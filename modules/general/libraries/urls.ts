@@ -4,11 +4,11 @@ const URLs = Object.freeze({
   collection(id: string) {
     return "/collections/" + id;
   },
-  member(username: string) {
+  user(username: string) {
     return Object.freeze({
-      main: `/member/${username}`,
-      liked: `/member/${username}/liked`,
-      collections: `/member/${username}/collections`,
+      main: `/user/${username}`,
+      liked: `/user/${username}/liked`,
+      collections: `/user/${username}/collections`,
     });
   },
   search: Object.freeze({
@@ -16,10 +16,10 @@ const URLs = Object.freeze({
     users: "/search/users",
     collections: "/search/collections",
   }),
-  user: Object.freeze({
-    main: "/user",
-    liked: "/user/liked",
-    collections: "/user/collections",
+  member: Object.freeze({
+    main: "/member",
+    liked: "/member/liked",
+    collections: "/member/collections",
   }),
 });
 

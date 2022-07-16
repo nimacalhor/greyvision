@@ -3,10 +3,15 @@ import { MainTemplate } from "@templates/index";
 import { ThemeProvider } from "@mui/material";
 import { wrapper } from "@main/modules/store";
 import theme from "../modules/theme";
-// types ________________________________________________________________________________
+
+// types ______________________________
 import type { ReactElement, ReactNode } from "react";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
+
+// styles ______________________________
+import "swiper/css/pagination";
+import "swiper/css";
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;

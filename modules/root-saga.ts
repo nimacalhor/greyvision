@@ -1,8 +1,8 @@
-import photoSaga from "./photo/store/saga";
+// import photoSaga from "./photo/store/saga";
 import { all } from "redux-saga/effects";
 
 function* rootSaga() {
-  yield all([photoSaga()]);
+  // yield all([photoSaga()]);
 }
 
 export default rootSaga;

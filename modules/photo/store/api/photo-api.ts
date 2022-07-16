@@ -25,7 +25,6 @@ const fetchPhotoList = async function (
   criteria: PhotoListCriteria
 ): Promise<PhotoListEntity> {
   const url = getPhotoListPath(criteria);
-  log("url in fetchPhotoList", url)
   try {
     const response = await axios.get(url);
     if (response.data)

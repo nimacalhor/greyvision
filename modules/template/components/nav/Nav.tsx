@@ -19,12 +19,12 @@ function Nav() {
   if (path === URLs.home && value !== 0) setValue(0);
   if (path.includes(URLs.collections) && value !== 1) setValue(1);
   if (path.includes(URLs.search.main) && value !== 2) setValue(2);
-  if (path.includes(URLs.user.main) && value !== 3) setValue(3);
+  if (path.includes(URLs.member.main) && value !== 3) setValue(3);
   return (
     <AppBar
       color="secondary"
       component={"nav"}
-      position={deviceType.isScreen ? "static" : "absolute"}
+      position={deviceType.isScreen ? "static" : "fixed"}
       sx={{
         top: "auto",
         bottom: {

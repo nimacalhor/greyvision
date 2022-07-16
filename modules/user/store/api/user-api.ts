@@ -28,7 +28,6 @@ const fetchUserList = async function (
   criteria: UserListCriteria
 ): Promise<UserListEntity> {
   const url = getUserListPath(criteria);
-  log("url in fetchUserList", url)
   try {
     const response = await axios.get(url);
     if (response.data)

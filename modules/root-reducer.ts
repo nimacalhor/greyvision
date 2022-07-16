@@ -1,4 +1,4 @@
-import photoReducer from "./photo/store/reducer/photo-reducer";
+// import photoReducer from "./photo/store/reducer/photo-reducer";
 
 import type { PhotoState } from "./photo/libraries/photo-types";
 
@@ -8,7 +8,7 @@ export interface RootState {
   photo: PhotoState;
 }
 const rootReducer = combineReducers({
-  photo: photoReducer,
+  // photo: photoReducer,
 });
 
 export default rootReducer;

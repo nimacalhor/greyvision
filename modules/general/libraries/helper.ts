@@ -1,9 +1,8 @@
 import { PhotoOrientation } from "@main/modules/photo/libraries/photo-types";
-import { PHOTO_QUERIES } from "./constants";
 
 const addClientId = (url: string) =>
   url +
-  `${!url.endsWith("&") || !url.endsWith("?") ? "&" : ""}client_id=${
+  `${url.endsWith("&") || url.endsWith("?") ? "" : "&"}client_id=${
     process.env.unsplash_access_key
   }`;
 
@@ -33,14 +32,18 @@ const getSingleQuery = (query: string | string[]): string => {
   return query;
 };
 
-const getRandomPhotoQuery = () =>
-  PHOTO_QUERIES[Math.floor(Math.random() * PHOTO_QUERIES.length)];
+
+const trimText = (input: string, length: number) => {
+  if (input)
+    return input.length > length ? `${input.substring(0, length)}...` : input;
+  return "";
+};
 
 export {
-  getRandomPhotoQuery,
   getSingleQuery,
   addSecretKey,
   addClientId,
   getUrlParam,
+  trimText,
   log,
 };
