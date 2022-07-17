@@ -1,5 +1,6 @@
 import { fetchPhotoList } from "../../store/api/photo-api";
 import Container from "@mui/material/Container";
+import PhotoDialog from "../photo-dialog";
 import Masonry from "@mui/lab/Masonry";
 import Box from "@mui/material/Box";
 import LoadMore from "../load-more";
@@ -10,13 +11,28 @@ import {
   PHOTOS_PER_PAGE,
 } from "@main/modules/general/libraries/constants";
 
+import type { DeviceType } from "@main/modules/general/libraries/device-type";
 import type { Photo } from "../../libraries/photo-types";
 
-function Gallery({ photoList, query }: { photoList: Photo[]; query: string }) {
+function Gallery({
+  photoList,
+  query,
+  deviceType,
+}: {
+  photoList: Photo[];
+  query: string;
+  deviceType: DeviceType;
+}) {
   const [list, setList] = useState<Photo[]>([...photoList]);
   const [page, setPage] = useState(2);
   const [pending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const [photo, setPhoto] = useState<Photo>(photoList[0])
+  const clickHandler = function (photo: Photo) {
+    setPhoto(photo)
+    setOpen(true);
+  };
 
   const loadMoreHandler = async function () {
     setPending(true);
@@ -54,13 +70,21 @@ function Gallery({ photoList, query }: { photoList: Photo[]; query: string }) {
             lg: 4,
           }}
         >
-          {list.map(({ urls, height, id, alt_description, blur_hash }) => (
-            <Box key={id} sx={{ position: "relative", height: height / 12.5 }}>
+          {list.map((photo) => (
+            <Box
+              onClick={() => clickHandler(photo)}
+              key={photo.id}
+              sx={{
+                position: "relative",
+                height: photo.height / 12.5,
+                cursor: "pointer",
+              }}
+            >
               <Image
                 placeholder="blur"
-                blurDataURL={blur_hash}
-                alt={alt_description}
-                src={urls.small}
+                blurDataURL={photo.blur_hash}
+                alt={photo.alt_description}
+                src={photo.urls.small}
                 layout="fill"
                 objectFit="cover"
               />
@@ -72,6 +96,12 @@ function Gallery({ photoList, query }: { photoList: Photo[]; query: string }) {
         error={error}
         pending={pending}
         onLoadMoreHandler={loadMoreHandler}
+      />
+      <PhotoDialog
+        photo={photo}
+        onClose={() => setOpen(false)}
+        deviceType={deviceType}
+        open={open}
       />
     </>
   );

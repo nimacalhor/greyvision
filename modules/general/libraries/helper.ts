@@ -32,11 +32,23 @@ const getSingleQuery = (query: string | string[]): string => {
   return query;
 };
 
-
 const trimText = (input: string, length: number) => {
   if (input)
     return input.length > length ? `${input.substring(0, length)}...` : input;
   return "";
+};
+
+const download = (path: string, filename: string) => {
+  const anchor = document.createElement("a");
+  anchor.href = path;
+  anchor.download = filename;
+  anchor.target = "_blank";
+
+  document.body.appendChild(anchor);
+
+  anchor.click();
+
+  document.body.removeChild(anchor);
 };
 
 export {
@@ -45,5 +57,6 @@ export {
   addClientId,
   getUrlParam,
   trimText,
+  download,
   log,
 };

@@ -3,7 +3,7 @@ import { fetchPhotoList } from "@main/modules/photo/store/api/photo-api";
 import { fetchUserList } from "@main/modules/user/store/api/user-api";
 import { log } from "@main/modules/general/libraries/helper";
 import useDeviceType from "@general/libraries/device-type";
-import { wrapper } from "@main/modules/store";
+// import { wrapper } from "@main/modules/store";
 import { getQuery } from "./api/query";
 import dynamic from "next/dynamic";
 
@@ -35,13 +35,14 @@ export default function Home({
         <UserSmSlide deviceType={deviceType} userList={userList} />
       )}
       {photoList && photoList.length > 5 && (
-        <Gallery query={query} photoList={photoList} />
+        <Gallery deviceType={deviceType} query={query} photoList={photoList} />
       )}
     </>
   );
 }
 
-export const getStaticProps = wrapper.getStaticProps(() => async () => {
+// export const getStaticProps = wrapper.getStaticProps(() => async () => {
+export const getStaticProps = async function () {
   let photoList: Photo[] | null = null;
   let userList: User[] | null = null;
   const query = getQuery();
@@ -78,4 +79,4 @@ export const getStaticProps = wrapper.getStaticProps(() => async () => {
       query,
     },
   };
-});
+};

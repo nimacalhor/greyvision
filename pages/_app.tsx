@@ -1,7 +1,7 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { MainTemplate } from "@templates/index";
 import { ThemeProvider } from "@mui/material";
-import { wrapper } from "@main/modules/store";
+// import { wrapper } from "@main/modules/store";
 import theme from "../modules/theme";
 
 // types ______________________________
@@ -33,4 +33,5 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default wrapper.withRedux(MyApp);
+// export default wrapper.withRedux(MyApp);
+export default MyApp;
