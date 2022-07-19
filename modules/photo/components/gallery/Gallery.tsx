@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import PhotoDialog from "../photo-dialog";
 import Masonry from "@mui/lab/Masonry";
 import Box from "@mui/material/Box";
-import LoadMore from "../load-more";
+import LoadMore from "../../../general/components/load-more";
 import { useState } from "react";
 import Image from "next/image";
 import {
@@ -28,9 +28,9 @@ function Gallery({
   const [pending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
-  const [photo, setPhoto] = useState<Photo>(photoList[0])
+  const [photo, setPhoto] = useState<Photo>(photoList[0]);
   const clickHandler = function (photo: Photo) {
-    setPhoto(photo)
+    setPhoto(photo);
     setOpen(true);
   };
 
@@ -81,12 +81,12 @@ function Gallery({
               }}
             >
               <Image
-                placeholder="blur"
-                blurDataURL={photo.blur_hash}
                 alt={photo.alt_description}
                 src={photo.urls.small}
                 layout="fill"
                 objectFit="cover"
+                placeholder="blur"
+                blurDataURL={`data:image/jpeg;/base64,${photo.blur_hash}`}
               />
             </Box>
           ))}

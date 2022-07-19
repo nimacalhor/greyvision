@@ -36,7 +36,7 @@ function PhotoDialog({
         }}
       >
         <Image
-          blurDataURL={blur_hash}
+          blurDataURL={`data:image/,${photo.blur_hash}`}
           alt={alt_description}
           src={urls.regular}
           placeholder="blur"

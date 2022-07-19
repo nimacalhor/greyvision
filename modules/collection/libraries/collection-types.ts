@@ -261,3 +261,8 @@ export interface CollectionListEntity {
   results: Collection[];
   criteria: CollectionListCriteria;
 }
+
+// others ______________________________
+export interface collectionCardProps extends Collection {
+  photoList: [Photo, Photo];
+}

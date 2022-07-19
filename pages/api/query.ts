@@ -18,7 +18,7 @@ let query = getRandomPhotoQuery();
 
 setInterval(() => {
   query = getRandomPhotoQuery();
-}, REVALIDATION_TIME * 100);
+}, REVALIDATION_TIME * 60000);
 
 const getQuery = () => query;
 
