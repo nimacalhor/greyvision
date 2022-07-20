@@ -1,9 +1,10 @@
+import LoadMore from "../../../general/components/load-more";
 import { fetchPhotoList } from "../../store/api/photo-api";
+import useLoadMore from "@general/libraries/load-more";
 import Container from "@mui/material/Container";
 import PhotoDialog from "../photo-dialog";
 import Masonry from "@mui/lab/Masonry";
 import Box from "@mui/material/Box";
-import LoadMore from "../../../general/components/load-more";
 import { useState } from "react";
 import Image from "next/image";
 import {
@@ -11,51 +12,29 @@ import {
   PHOTOS_PER_PAGE,
 } from "@main/modules/general/libraries/constants";
 
+import type { CollectionPhotoListCriteria } from "@collection/libraries/collection-types";
 import type { DeviceType } from "@main/modules/general/libraries/device-type";
-import type { Photo } from "../../libraries/photo-types";
+import type { Photo, PhotoListCriteria } from "../../libraries/photo-types";
+import type { LoadMoreProps } from "@main/modules/general/components/load-more/LoadMore";
 
 function Gallery({
   photoList,
-  query,
   deviceType,
+  loadMoreProps,
 }: {
   photoList: Photo[];
-  query: string;
   deviceType: DeviceType;
+  loadMoreProps?: LoadMoreProps;
 }) {
-  const [list, setList] = useState<Photo[]>([...photoList]);
-  const [page, setPage] = useState(2);
-  const [pending, setPending] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [photo, setPhoto] = useState<Photo>(photoList[0]);
+
+
   const clickHandler = function (photo: Photo) {
     setPhoto(photo);
     setOpen(true);
   };
 
-  const loadMoreHandler = async function () {
-    setPending(true);
-    try {
-      const { results, total_pages } = await fetchPhotoList({
-        query,
-        page,
-        color: "black_and_white",
-        order_by: PHOTOS_ORDER_BY,
-        per_page: PHOTOS_PER_PAGE,
-      });
-      if (results) {
-        if (results.length) {
-          setList((prevList) => [...prevList, ...results]);
-          setPage((prevPage) => prevPage + 1);
-        } else setError("no more images");
-      }
-      if (page >= total_pages) setError("no more images");
-    } catch (error: any) {
-      setError("no more images");
-    }
-    setPending(false);
-  };
   return (
     <>
       <Container
@@ -70,7 +49,7 @@ function Gallery({
             lg: 4,
           }}
         >
-          {list.map((photo) => (
+          {photoList.map((photo) => (
             <Box
               onClick={() => clickHandler(photo)}
               key={photo.id}
@@ -92,11 +71,13 @@ function Gallery({
           ))}
         </Masonry>
       </Container>
-      <LoadMore
-        error={error}
-        pending={pending}
-        onLoadMoreHandler={loadMoreHandler}
-      />
+      {loadMoreProps && (
+        <LoadMore
+          error={loadMoreProps.error}
+          loadMoreHandler={loadMoreProps.loadMoreHandler}
+          pending={loadMoreProps.pending}
+        />
+      )}
       <PhotoDialog
         photo={photo}
         onClose={() => setOpen(false)}

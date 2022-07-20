@@ -1,44 +1,30 @@
 import CollectionSectionCard from "@collection/components/collection-section-card";
-import { fetchCollectionList } from "@collection/store/api/collection-api";
-import { COLLECTION_PER_PAGE } from "@general/libraries/constants";
+import { fetchCollectionList } from "../../store/api/collection-api";
+import useLoadMore from "@general/libraries/load-more";
 import LoadMore from "@general/components/load-more";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
 
 // types ______________________________
-import { Collection } from "@collection/libraries/collection-types";
+import {
+  Collection,
+  CollectionListCriteria,
+} from "@collection/libraries/collection-types";
 
 function CollectionGrid({
   collectionList,
-  query,
+  criteria,
 }: {
   collectionList: Collection[] | null;
-  query: string;
+  criteria: CollectionListCriteria;
 }) {
-  const [list, setList] = useState<Collection[]>(
-    collectionList ? [...collectionList] : []
+
+  const { list, error, loadMoreHandler, pending } = useLoadMore<Collection, CollectionListCriteria>(
+    collectionList,
+    criteria,
+    fetchCollectionList
   );
-  const [pending, setPending] = useState<boolean>(false);
-  const [error, setError] = useState<null | string>(null);
-  const [page, setPage] = useState(2);
-  const loadMoreHandler = async function () {
-    setPending(true);
-    try {
-      const collectionListEntity = await fetchCollectionList({
-        query,
-        page,
-        per_page: COLLECTION_PER_PAGE,
-      });
-      if (collectionListEntity.results) {
-        setPage((prevPage) => prevPage + 1);
-        setList((prevList) => [...prevList, ...collectionListEntity.results]);
-      } else setError("something went wrong");
-    } catch (error: any) {
-      setError(error.message);
-    }
-    setPending(false);
-  };
+  
   return (
     <Container sx={{ mt: 3 }}>
       <Grid container spacing={2}>

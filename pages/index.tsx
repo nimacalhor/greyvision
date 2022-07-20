@@ -3,6 +3,7 @@ import { fetchPhotoList } from "@main/modules/photo/store/api/photo-api";
 import { fetchUserList } from "@main/modules/user/store/api/user-api";
 import { log } from "@main/modules/general/libraries/helper";
 import useDeviceType from "@general/libraries/device-type";
+import useLoadMore from "@general/libraries/load-more";
 // import { wrapper } from "@main/modules/store";
 import { getQuery } from "./api/query";
 import dynamic from "next/dynamic";
@@ -29,19 +30,23 @@ export default function Home({
   query: string;
 }) {
   const deviceType = useDeviceType();
+  const {list,...loadMoreProps} = useLoadMore<Photo, PhotoListCriteria>(
+    photoList,
+    { query, per_page: PHOTOS_PER_PAGE, color: "black_and_white" },
+    fetchPhotoList
+  );
   return (
     <>
       {userList && userList.length > 5 && (
         <UserSmSlide deviceType={deviceType} userList={userList} />
       )}
       {photoList && photoList.length > 5 && (
-        <Gallery deviceType={deviceType} query={query} photoList={photoList} />
+        <Gallery deviceType={deviceType} photoList={list} loadMoreProps={loadMoreProps}/>
       )}
     </>
   );
 }
 
-// export const getStaticProps = wrapper.getStaticProps(() => async () => {
 export const getStaticProps = async function () {
   let photoList: Photo[] | null = null;
   let userList: User[] | null = null;

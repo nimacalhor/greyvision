@@ -18,7 +18,7 @@ function CollectionsPage({
   return (
     <>
       {collectionList && (
-        <CollectionGrid collectionList={collectionList} query={query} />
+        <CollectionGrid collectionList={collectionList} criteria={{ query }} />
       )}
     </>
   );
