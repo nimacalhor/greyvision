@@ -29,7 +29,6 @@ function Gallery({
   const [open, setOpen] = useState(false);
   const [photo, setPhoto] = useState<Photo>(photoList[0]);
 
-
   const clickHandler = function (photo: Photo) {
     setPhoto(photo);
     setOpen(true);
@@ -78,12 +77,14 @@ function Gallery({
           pending={loadMoreProps.pending}
         />
       )}
-      <PhotoDialog
-        photo={photo}
-        onClose={() => setOpen(false)}
-        deviceType={deviceType}
-        open={open}
-      />
+      {photo && photo.urls && (
+        <PhotoDialog
+          photo={photo}
+          onClose={() => setOpen(false)}
+          deviceType={deviceType}
+          open={open}
+        />
+      )}
     </>
   );
 }

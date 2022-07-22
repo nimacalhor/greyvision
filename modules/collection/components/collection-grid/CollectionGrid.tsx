@@ -10,37 +10,33 @@ import {
   Collection,
   CollectionListCriteria,
 } from "@collection/libraries/collection-types";
+import type { LoadMoreProps } from "@general/components/load-more/LoadMore";
 
 function CollectionGrid({
   collectionList,
-  criteria,
+  loadMoreProps,
 }: {
-  collectionList: Collection[] | null;
-  criteria: CollectionListCriteria;
+  collectionList: Collection[];
+  loadMoreProps?: LoadMoreProps;
 }) {
-
-  const { list, error, loadMoreHandler, pending } = useLoadMore<Collection, CollectionListCriteria>(
-    collectionList,
-    criteria,
-    fetchCollectionList
-  );
-  
   return (
     <Container sx={{ mt: 3 }}>
       <Grid container spacing={2}>
-        {list.length &&
-          list.map((clt) => (
+        {collectionList.length &&
+          collectionList.map((clt) => (
             <Grid item xs={12} sm={6} md={4} key={clt.id}>
               <CollectionSectionCard collection={clt} />
               <br />
             </Grid>
           ))}
       </Grid>
-      <LoadMore
-        error={error}
-        pending={pending}
-        onLoadMoreHandler={loadMoreHandler}
-      />
+      {loadMoreProps && (
+        <LoadMore
+          error={loadMoreProps.error}
+          pending={loadMoreProps.pending}
+          loadMoreHandler={loadMoreProps.loadMoreHandler}
+        />
+      )}
     </Container>
   );
 }

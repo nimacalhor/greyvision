@@ -2,24 +2,27 @@ import useDeviceType from "@general/libraries/device-type";
 import NAV_ITEMS from "../../libraries/nav-items";
 import URLs from "@general/libraries/urls";
 import AppBar from "@mui/material/AppBar";
-import { useRouter } from "next/router";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useState } from "react";
 
-function Nav() {
-  const router = useRouter();
+import type { NextRouter } from "next/router";
+
+function Nav({ router }: { router: NextRouter }) {
   const deviceType = useDeviceType();
-  const [value, setValue] = useState(0);
+  const path = router.pathname;
+  const [value, setValue] = useState<number>(() => {
+    if (path === URLs.home) return 0;
+    if (path.includes(URLs.collections)) return 1;
+    if (path.includes(URLs.search.main)) return 2;
+    if (path.includes("/user/")) return 2;
+    if (path.includes(URLs.member.main)) return 3;
+    return 0
+  });
   const handleChange = ({ target }: any, newValue: number) => {
     setValue(newValue);
     router.push(target.dataset.href || "/");
   };
-  const path = router.pathname;
-  if (path === URLs.home && value !== 0) setValue(0);
-  if (path.includes(URLs.collections) && value !== 1) setValue(1);
-  if (path.includes(URLs.search.main) && value !== 2) setValue(2);
-  if (path.includes(URLs.member.main) && value !== 3) setValue(3);
   return (
     <AppBar
       color="secondary"

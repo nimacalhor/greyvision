@@ -1,10 +1,14 @@
 import { fetchCollectionList } from "@collection/store/api/collection-api";
+import useLoadMore from "@main/modules/general/libraries/load-more";
 import CollectionGrid from "@collection/components/collection-grid";
 import { COLLECTION_PER_PAGE } from "@general/libraries/constants";
 import { getQuery } from "@main/pages/api/query";
 
 // types ______________________________
-import { Collection } from "@collection/libraries/collection-types";
+import {
+  Collection,
+  CollectionListCriteria,
+} from "@collection/libraries/collection-types";
 import type { GetStaticProps } from "next";
 import { log } from "@main/modules/general/libraries/helper";
 
@@ -15,10 +19,14 @@ function CollectionsPage({
   collectionList: Collection[] | null;
   query: string;
 }) {
+  const { list, ...loadMoreProps } = useLoadMore<
+    Collection,
+    CollectionListCriteria
+  >(collectionList, { query }, fetchCollectionList);
   return (
     <>
       {collectionList && (
-        <CollectionGrid collectionList={collectionList} criteria={{ query }} />
+        <CollectionGrid collectionList={list} loadMoreProps={loadMoreProps} />
       )}
     </>
   );
@@ -36,7 +44,9 @@ export const getStaticProps: GetStaticProps = async function () {
       collectionList = collectionListEntity.results;
     else log("error in collection ~ getStaticProps", "no collection found");
   } catch (error: any) {
-    log("error in collection ~ getStaticProps", error.message);
+    if (error && error.message)
+      log("error in collection ~ getStaticProps", error.message);
+    else log("error in collection ~ getStaticProps");
   }
   return { props: { collectionList, query } };
 };

@@ -82,7 +82,9 @@ export const getStaticProps: GetStaticProps = async function (context) {
     if (entity.results) photoList = entity.results;
     else log("error in CollectionPhotosPage ~ getStaticProps", "no photos");
   } catch (error: any) {
-    log("error in CollectionPhotosPage ~ getStaticProps", error.message);
+    if (error && error.message)
+      log("error in CollectionPhotosPage ~ getStaticProps", error.message);
+    else log("error in CollectionPhotosPage ~ getStaticProps");
   }
   if (!photoList || !photoList.length)
     return {
@@ -114,7 +116,10 @@ export const getStaticPaths: GetStaticPaths = async function () {
       collectionList = collectionListEntity.results;
     else log("error in CollectionPhotosPage ~ getStaticPaths", "no data");
   } catch (error: any) {
-    log("error in CollectionPhotosPage ~ getStaticPaths", error.message || "error");
+    log(
+      "error in CollectionPhotosPage ~ getStaticPaths",
+      error.message || "error"
+    );
   }
   return {
     paths: collectionList ? getPath(collectionList) : [],

@@ -22,6 +22,7 @@
       "@user/*": ["modules/user/*"],
       "@templates/*": ["templates/*"],
       "@photo/*": ["modules/photo/*"],
+      "@search/*": ["modules/search/*"],
       "@member/*": ["modules/member/*"],
       "@general/*": ["modules/general/*"],
       "@collection/*": ["modules/collection/*"],

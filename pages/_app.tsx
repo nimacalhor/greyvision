@@ -10,6 +10,7 @@ import type { AppProps } from "next/app";
 import type { NextPage } from "next";
 
 // styles ______________________________
+import "@modules/styles/user-template.css"
 import "swiper/css/pagination";
 import "swiper/css";
 

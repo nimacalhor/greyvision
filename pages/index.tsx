@@ -30,7 +30,7 @@ export default function Home({
   query: string;
 }) {
   const deviceType = useDeviceType();
-  const {list,...loadMoreProps} = useLoadMore<Photo, PhotoListCriteria>(
+  const { list, ...loadMoreProps } = useLoadMore<Photo, PhotoListCriteria>(
     photoList,
     { query, per_page: PHOTOS_PER_PAGE, color: "black_and_white" },
     fetchPhotoList
@@ -41,7 +41,11 @@ export default function Home({
         <UserSmSlide deviceType={deviceType} userList={userList} />
       )}
       {photoList && photoList.length > 5 && (
-        <Gallery deviceType={deviceType} photoList={list} loadMoreProps={loadMoreProps}/>
+        <Gallery
+          deviceType={deviceType}
+          photoList={list}
+          loadMoreProps={loadMoreProps}
+        />
       )}
     </>
   );
@@ -75,7 +79,9 @@ export const getStaticProps = async function () {
     if (userListEntity.results.length) userList = userListEntity.results;
     //
   } catch (error: any) {
-    log("error in main page > getStaticProps", error);
+    if (error && error.message)
+      log("error in main page > getStaticProps", error.message);
+    else log("error in main page > getStaticProps");
   }
   return {
     props: {

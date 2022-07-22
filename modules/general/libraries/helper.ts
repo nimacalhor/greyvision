@@ -1,4 +1,5 @@
 import { PhotoOrientation } from "@main/modules/photo/libraries/photo-types";
+import { GetStaticPropsContext } from "next";
 
 const addClientId = (url: string) =>
   url +
@@ -51,11 +52,24 @@ const download = (path: string, filename: string) => {
   document.body.removeChild(anchor);
 };
 
+const getParamId = ({ params }: GetStaticPropsContext, key: string) => {
+  let result = "";
+  if (params) {
+    const id = params[key];
+    if (id) {
+      if (Array.isArray(id)) result = id[0];
+      else result = id;
+    }
+  }
+  return result;
+};
+
 export {
   getSingleQuery,
   addSecretKey,
   addClientId,
   getUrlParam,
+  getParamId,
   trimText,
   download,
   log,
