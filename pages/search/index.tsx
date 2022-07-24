@@ -1,20 +1,21 @@
 import SearchTemplate from "@templates/search-template";
 import { getQuery } from "../api/query";
-import { GetStaticProps } from "next";
-
-import type { Photo, PhotoLikeCriteria } from "@photo/libraries/photo-types";
 import { fetchPhotoList } from "@main/modules/photo/store/api/photo-api";
 import { log } from "@main/modules/general/libraries/helper";
 import useDeviceType from "@general/libraries/device-type";
-import useLoadMore from "@general/libraries/load-more";
+import { useSelector, useDispatch } from "react-redux";
 import Gallery from "@photo/components/gallery";
 import {
   PHOTOS_ORDER_BY,
   PHOTOS_PER_PAGE,
 } from "@main/modules/general/libraries/constants";
 
-import type { NextPageWithLayout } from "../_app";
-import type { ReactElement } from "react";
+import { ReactElement, useState } from "react";
+import type { Photo } from "@photo/libraries/photo-types";
+import type { GetStaticProps } from "next";
+import { RootState } from "@main/modules/root-reducer";
+import { LoadMoreProps } from "@main/modules/general/components/load-more/LoadMore";
+import { addPhotos } from "@main/modules/photo/store/actions";
 
 const SearchPhotosPage = function ({
   photoList,
@@ -22,10 +23,27 @@ const SearchPhotosPage = function ({
   photoList: Photo[] | null;
 }) {
   const deviceType = useDeviceType();
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(2);
+  const { error, list, pending, query } = useSelector(
+    (state: RootState) => state.photo
+  );
+  const loadMoreProps: LoadMoreProps = {
+    error,
+    pending,
+    loadMoreHandler: async function () {
+      setPage((prevPage) => prevPage + 1);
+      dispatch(addPhotos({ page, query, per_page: PHOTOS_PER_PAGE }));
+    },
+  };
   return (
     <div>
       {photoList && photoList.length && (
-        <Gallery deviceType={deviceType} photoList={photoList} />
+        <Gallery
+          deviceType={deviceType}
+          photoList={list && list.length ? list : photoList}
+          loadMoreProps={query ? loadMoreProps : undefined}
+        />
       )}
     </div>
   );

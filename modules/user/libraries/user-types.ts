@@ -4,6 +4,7 @@ import {
   PhotoListSorting,
   PhotoOrientation,
 } from "../../photo/libraries/photo-types";
+import UserActionTypes from "../store/action-types";
 
 // User ________________________________________________________________________________
 export interface User {
@@ -102,4 +103,54 @@ export interface UserListEntity {
   total_pages: number;
   results: User[];
   criteria: UserListCriteria;
+}
+
+// store ______________________________
+export interface UserState {
+  error: null | string;
+  pending: boolean;
+  query: string;
+  list: User[];
+}
+export interface GetUsersAction {
+  type: UserActionTypes.GET_USERS;
+  payload: {
+    criteria: UserListCriteria;
+  };
+}
+export interface AddUsersAction {
+  type: UserActionTypes.ADD_USERS;
+  payload: {
+    criteria: UserListCriteria;
+  };
+}
+export interface PutUsersAction {
+  type: UserActionTypes.PUT_USERS;
+  payload: {
+    list: User[];
+  };
+}
+export interface PushUsersAction {
+  type: UserActionTypes.PUSH_USERS;
+  payload: {
+    list: User[];
+  };
+}
+export interface PutPendingUsersAction {
+  type: UserActionTypes.PUT_PENDING_USERS;
+  payload: {
+    pending: boolean;
+  };
+}
+export interface PutErrorUsersAction {
+  type: UserActionTypes.PUT_ERROR_USERS;
+  payload: {
+    error: null | string;
+  };
+}
+export interface PutUserQueryAction {
+  type: UserActionTypes.PUT_USER_QUERY;
+  payload: {
+    query: string;
+  };
 }

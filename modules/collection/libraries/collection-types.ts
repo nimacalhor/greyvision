@@ -2,6 +2,7 @@ import { PhotoOrientation } from "../../photo/libraries/photo-types";
 import { Photo } from "./../../photo/libraries/photo-types";
 import { Token } from "../../member/libraries/member-types";
 import { User } from "./../../user/libraries/user-types";
+import CollectionActionTypes from "../store/action-types";
 
 // Collection ________________________________________________________________________________
 export interface Collection {
@@ -13,7 +14,7 @@ export interface Collection {
   updated_at: string;
   curated: boolean;
   featured: boolean;
-  total_photos: number;
+  total_Collections: number;
   private: boolean;
   share_key: string;
   tags: Tag[];
@@ -265,4 +266,54 @@ export interface CollectionListEntity {
 // others ______________________________
 export interface collectionCardProps extends Collection {
   photoList: [Photo, Photo];
+}
+
+// store ______________________________
+export interface CollectionState {
+  error: null | string;
+  pending: boolean;
+  query: string;
+  list: Collection[];
+}
+export interface GetCollectionsAction {
+  type: CollectionActionTypes.GET_COLLECTIONS;
+  payload: {
+    criteria: CollectionListCriteria;
+  };
+}
+export interface AddCollectionsAction {
+  type: CollectionActionTypes.ADD_COLLECTIONS;
+  payload: {
+    criteria: CollectionListCriteria;
+  };
+}
+export interface PutCollectionsAction {
+  type: CollectionActionTypes.PUT_COLLECTIONS;
+  payload: {
+    list: Collection[];
+  };
+}
+export interface PushCollectionsAction {
+  type: CollectionActionTypes.PUSH_COLLECTIONS;
+  payload: {
+    list: Collection[];
+  };
+}
+export interface PutPendingCollectionsAction {
+  type: CollectionActionTypes.PUT_PENDING_COLLECTIONS;
+  payload: {
+    pending: boolean;
+  };
+}
+export interface PutErrorCollectionsAction {
+  type: CollectionActionTypes.PUT_ERROR_COLLECTIONS;
+  payload: {
+    error: null | string;
+  };
+}
+export interface PutCollectionQueryAction {
+  type: CollectionActionTypes.PUT_COLLECTION_QUERY;
+  payload: {
+    query: string;
+  };
 }

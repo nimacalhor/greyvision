@@ -112,16 +112,11 @@ export enum PhotoListSorting {
 }
 
 // store ______________________________
-export interface PhotoStateItem {
-  page: number;
-  photos: Photo[];
-}
 export interface PhotoState {
   error: null | string;
   pending: boolean;
-  canLoadMore: boolean;
   query: string;
-  list: PhotoStateItem[];
+  list: Photo[];
 }
 export interface GetPhotosAction {
   type: PhotoActionsTypes.GET_PHOTOS;
@@ -129,10 +124,22 @@ export interface GetPhotosAction {
     criteria: PhotoListCriteria;
   };
 }
+export interface AddPhotosAction {
+  type: PhotoActionsTypes.ADD_PHOTOS;
+  payload: {
+    criteria: PhotoListCriteria;
+  };
+}
 export interface PutPhotosAction {
   type: PhotoActionsTypes.PUT_PHOTOS;
   payload: {
-    item: PhotoStateItem;
+    list: Photo[];
+  };
+}
+export interface PushPhotosAction {
+  type: PhotoActionsTypes.PUSH_PHOTOS;
+  payload: {
+    list: Photo[];
   };
 }
 export interface PutPendingPhotosAction {
@@ -145,12 +152,6 @@ export interface PutErrorPhotosAction {
   type: PhotoActionsTypes.PUT_ERROR_PHOTOS;
   payload: {
     error: null | string;
-  };
-}
-export interface PutLoadMoreAction {
-  type: PhotoActionsTypes.PUT_LOAD_MORE;
-  payload: {
-    limit: number;
   };
 }
 export interface PutPhotoQueryAction {

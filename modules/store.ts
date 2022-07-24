@@ -7,19 +7,19 @@ import rootSaga from "./root-saga";
 
 import type { Task } from "@redux-saga/core";
 
-// export interface SagaStore extends Store {
-//   sagaTask?: Task;
-// }
+export interface SagaStore extends Store {
+  sagaTask?: Task;
+}
 
-// const saga = createSagaMiddleware();
+const saga = createSagaMiddleware();
 
-// function configureStore() {
-//   const store = createStore(
-//     rootReducer,
-//     composeWithDevTools(applyMiddleware(saga))
-//   );
-//   (store as any).sagaTask = saga.run(rootSaga);
-//   return store;
-// }
-// export default configureStore;
-// export const wrapper = createWrapper(configureStore as any, { debug: false });
+function configureStore() {
+  const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(saga))
+  );
+  (store as any).sagaTask = saga.run(rootSaga);
+  return store;
+}
+export default configureStore;
+export const wrapper = createWrapper(configureStore as any, { debug: false });

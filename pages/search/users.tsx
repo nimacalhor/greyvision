@@ -8,12 +8,37 @@ import { getQuery } from "../api/query";
 
 import type { User } from "@user/libraries/user-types";
 import type { GetStaticProps } from "next";
-import type { ReactElement } from "react";
+import { ReactElement, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@main/modules/root-reducer";
+import { LoadMoreProps } from "@main/modules/general/components/load-more/LoadMore";
+import { addUsers } from "@main/modules/user/store/actions";
 
 function SearchUsersPage({ userList }: { userList: User[] | null }) {
   const deviceType = useDeviceType();
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(2);
+  const { error, list, pending, query } = useSelector(
+    (state: RootState) => state.user
+  );
+  const loadMoreProps: LoadMoreProps = {
+    error,
+    pending,
+    loadMoreHandler: async function () {
+      setPage((prevPage) => prevPage + 1);
+      dispatch(addUsers({ page, query, per_page: USER_PER_PAGE }));
+    },
+  };
   return (
-    <>{userList && <UserGrid userList={userList} deviceType={deviceType} />}</>
+    <>
+      {userList && (
+        <UserGrid
+          loadMoreProps={list.length ? loadMoreProps : undefined}
+          userList={list.length ? list : userList}
+          deviceType={deviceType}
+        />
+      )}
+    </>
   );
 }
 
@@ -34,8 +59,7 @@ export const getStaticProps: GetStaticProps = async function () {
   } catch (error: any) {
     if (error && error.message)
       log("error in user ~ getStaticProps", error.message);
-      else
-      log("error in user ~ getStaticProps");
+    else log("error in user ~ getStaticProps");
   }
   return { props: { userList, query } };
 };

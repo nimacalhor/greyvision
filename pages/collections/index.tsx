@@ -22,7 +22,11 @@ function CollectionsPage({
   const { list, ...loadMoreProps } = useLoadMore<
     Collection,
     CollectionListCriteria
-  >(collectionList, { query }, fetchCollectionList);
+  >(
+    collectionList,
+    { query, per_page: COLLECTION_PER_PAGE },
+    fetchCollectionList
+  );
   return (
     <>
       {collectionList && (

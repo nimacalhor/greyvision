@@ -42,7 +42,7 @@ const NAV_ITEMS = Object.freeze([
       Active: PersonIcon,
       Inactive: PersonOutlineOutlinedIcon,
     }),
-    href: URLs.user.main,
+    href: URLs.member.main,
   },
 ]);
 

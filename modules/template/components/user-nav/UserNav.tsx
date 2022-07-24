@@ -29,11 +29,27 @@ function UserNav({ router }: { router: NextRouter }) {
       onChange={handleChange}
       aria-label="nav tab"
     >
-      <Tab label="photos" data-href={`/user/${router.query.username}`} />
-      <Tab label="liked" data-href={`/user/${router.query.username}/liked`} />
+      <Tab
+        label="photos"
+        data-href={`${
+          router.query.username ? `/user/${router.query.username}` : `/member`
+        }`}
+      />
+      <Tab
+        label="liked"
+        data-href={`${
+          router.query.username
+            ? `/user/${router.query.username}/liked`
+            : `/member/liked`
+        }`}
+      />
       <Tab
         label="collections"
-        data-href={`/user/${router.query.username}/collections`}
+        data-href={`${
+          router.query.username
+            ? `/user/${router.query.username}/collections`
+            : `/member/collections`
+        }`}
       />
     </Tabs>
   );

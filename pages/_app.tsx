@@ -1,7 +1,7 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { MainTemplate } from "@templates/index";
 import { ThemeProvider } from "@mui/material";
-// import { wrapper } from "@main/modules/store";
+import { wrapper } from "@main/modules/store";
 import theme from "../modules/theme";
 
 // types ______________________________
@@ -10,7 +10,7 @@ import type { AppProps } from "next/app";
 import type { NextPage } from "next";
 
 // styles ______________________________
-import "@modules/styles/user-template.css"
+import "@modules/styles/user-template.css";
 import "swiper/css/pagination";
 import "swiper/css";
 
@@ -34,5 +34,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-// export default wrapper.withRedux(MyApp);
-export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -24,7 +24,6 @@ function CollectionSectionCard({ collection }: { collection: Collection }) {
       blur_hash,
     },
     preview_photos,
-    total_photos,
     tags,
     id,
   } = collection;
@@ -43,8 +42,6 @@ function CollectionSectionCard({ collection }: { collection: Collection }) {
               src={small}
               alt={alt_description}
               layout="fill"
-              placeholder="blur"
-              blurDataURL={blur_hash}
               objectFit="cover"
             />
           </Grid>
@@ -55,8 +52,8 @@ function CollectionSectionCard({ collection }: { collection: Collection }) {
                   src={photo.urls.thumb}
                   alt={alt_description}
                   layout="fill"
-                  placeholder="blur"
-                  blurDataURL={photo.blur_hash}
+                  // placeholder="blur"
+                  // blurDataURL={photo.blur_hash}
                   objectFit="cover"
                 />
               </Grid>
@@ -66,7 +63,7 @@ function CollectionSectionCard({ collection }: { collection: Collection }) {
         <Grid item xs={3}>
           <Typography variant="h5">{title}</Typography>
           <Typography gutterBottom variant="body2">
-            {total_photos} photos . by {user.username}
+            by {user.username}
           </Typography>
           {tags.slice(0, 3).map((tag, i) => (
             <Chip size="small" key={i} label={tag.title} sx={{mr:1,mt:1}} />

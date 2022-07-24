@@ -6,17 +6,39 @@ import { log } from "@main/modules/general/libraries/helper";
 import { SearchTemplate } from "@main/templates";
 import { getQuery } from "../api/query";
 import { GetStaticProps } from "next";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@main/modules/root-reducer";
+import { LoadMoreProps } from "@main/modules/general/components/load-more/LoadMore";
+import { addCollections } from "@main/modules/collection/store/actions";
 
 function SearchCollectionsPage({
   collectionList,
-  query,
 }: {
   collectionList: Collection[] | null;
-  query: string;
 }) {
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(2);
+  const { error, list, pending, query } = useSelector(
+    (state: RootState) => state.collection
+  );
+  const loadMoreProps: LoadMoreProps = {
+    error,
+    pending,
+    loadMoreHandler: async function () {
+      setPage((prevPage) => prevPage + 1);
+      dispatch(addCollections({ page, query, per_page: COLLECTION_PER_PAGE }));
+    },
+  };
   return (
-    <>{collectionList && <CollectionGrid collectionList={collectionList} />}</>
+    <>
+      {collectionList && (
+        <CollectionGrid
+          loadMoreProps={list.length ? loadMoreProps : undefined}
+          collectionList={list.length ? list : collectionList}
+        />
+      )}
+    </>
   );
 }
 
